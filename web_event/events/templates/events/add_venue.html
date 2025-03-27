@@ -1,0 +1,21 @@
+{% extends 'events/base.html' %}
+
+{% block title %}
+    add-venue-page
+{% endblock %}
+
+{% block content %}
+<h1>Add Venue to Database</h1>
+<br>
+{% if submitted %}
+    Your Venue Was Submitted Successfully
+{% else %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" class="btn btn-secondary">
+    </form>
+{% endif %}
+
+
+{% endblock %}
