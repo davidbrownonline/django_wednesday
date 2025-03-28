@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
@@ -59,3 +59,12 @@ def list_venues(request):
 def show_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
     return render(request, 'events/show_venue.html', {'venue':venue})
+
+
+def update_venue(request, venue_id):
+    venue = Venue.objects.get(pk=venue_id)
+    form = VenueForm(request.POST or None, instance=venue)
+    if form.is_valid():
+        form.save()
+        return redirect('list-venues')
+    return render(request, 'events/update_venue.html', {'venue':venue, 'form':form})
